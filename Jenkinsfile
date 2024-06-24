@@ -1,39 +1,26 @@
 pipeline {
     agent any
 
-        stages {
-            stage('Preparacion') {
-                steps {
-                    git branch:'main',url:'https://github.com/josebiton/backshop.git'
-   	       		echo 'Pulled from github successfully'
-                }
-           }
-        
-        stage('Verifica version php'){
+    stages {
+        stage('Preparacion') {
+            steps {
+                git branch: 'main', url: 'https://github.com/josebiton/backshop.git'
+                echo 'Pulled from GitHub successfully'
+            }
+        }
+
+        stage('Verifica version php') {
             steps {
                 sh 'php --version'
             }
         }
 
-        stage('Pruebas unitarias php'){
+        stage('Pruebas unitarias php') {
             steps {
-                //sh 'chmod 0775 vendor/bin/phpunit'
                 sh 'chmod +x ./vendor/bin/phpunit'
                 sh './vendor/bin/phpunit'
-           }
+            }
         }
-         //Revisa la calidad de código con SonarQube
-        //stage ('Sonarqube') {
-        //    steps {
-        //        script {
-        //            def scannerHome = tool name: 'sonarscanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
-        //            echo "scannerHome = $scannerHome ...."
-        //            withSonarQubeEnv() {
-        //                sh "$scannerHome/bin/sonar-scanner"
-        //            }
-        //        }
-        //    }
-        //}
 
         stage('Compilación de Docker') {
             steps {
@@ -41,10 +28,22 @@ pipeline {
             }
         }
 
-         stage('Implementar php') {
+        stage('Implementar php') {
             steps {
                 sh 'docker compose up -d'
             }
-        }      
+        }
+
+        stage('Ejecutar Postman Collection') {
+            steps {
+                script {
+                    // Instalar Newman si no está instalado
+                    sh 'npm install -g newman'
+
+                    // Ejecutar la colección de Postman
+                    sh "newman run 'Market.postman_collection.json' -e 'Market-Env.postman_environment.json'"
+                }
+            }
+        }
     }
 }
