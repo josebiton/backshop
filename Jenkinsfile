@@ -17,7 +17,7 @@ pipeline {
 
         stage('Pruebas unitarias php'){
             steps {
-                sh 'chmod 0775 ./vendor/bin/phpunit'
+                //sh 'chmod 0775 vendor/bin/phpunit'
                 sh 'chmod +x ./vendor/bin/phpunit'
                 sh './vendor/bin/phpunit'
            }
