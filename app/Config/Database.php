@@ -26,10 +26,10 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'localhost',
-        'username'     => '',
-        'password'     => '',
-        'database'     => '',
+        'hostname'     => 'database-bitoncito.cqqlkrymbtcy.us-east-1.rds.amazonaws.com',
+        'username'     => 'admin',
+        'password'     => 'jnbb11jsm',
+        'database'     => 'shopmarket',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
