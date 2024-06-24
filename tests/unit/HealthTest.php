@@ -5,26 +5,26 @@ use CodeIgniter\Test\CIUnitTestCase;
 final class HealthTest extends CIUnitTestCase {
 
 
-  //  public function testAgregarProductoInventario() : void
-    // {
-     //   $inventario = new MockInventario();
-       // $producto = new MockProducto("Manzana", 1.5);
-       // $inventario->agregarProducto($producto, 10);
+    public function testAgregarProductoInventario() : void
+    {
+        $inventario = new MockInventario();
+        $producto = new MockProducto("Manzana", 1.5);
+        $inventario->agregarProducto($producto, 10);
 
-       // $this->assertTrue($inventario->estaProductoDisponible("Manzana"));
-    //}
+        $this->assertTrue($inventario->estaProductoDisponible("Manzana"));
+    }
 
-    /*public function testReducirCantidadProducto() : void*/
-    /* {
+    public function testReducirCantidadProducto() : void
+     {
         $inventario = new MockInventario();
         $producto = new MockProducto("Manzana", 1.5);
         $inventario->agregarProducto($producto, 10);
         $inventario->reducirCantidadProducto("Manzana", 5);
 
         $this->assertTrue($inventario->estaProductoDisponible("Manzana"));
-    }*/
+    }
 
-    /*public function testAgregarProductoCarrito() {
+    public function testAgregarProductoCarrito() {
         $carrito = new MockCarritoDeCompras();
         $producto = new MockProducto("Manzana", 1.5);
         $carrito->agregarProducto($producto);
@@ -47,7 +47,7 @@ final class HealthTest extends CIUnitTestCase {
 
         $this->assertEquals(1.8, $carrito->calcularTotal());
     }
-}*/
+}
 
 class MockProducto {
     public $nombre;
