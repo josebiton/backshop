@@ -1,6 +1,6 @@
-projectKey=BackShop
+projectKey=BackShop_v1
 serverUrl=http://ec2-100-26-120-150.compute-1.amazonaws.com:9000
 serverVersion=10.5.1.90531
-dashboardUrl=http://ec2-100-26-120-150.compute-1.amazonaws.com:9000/dashboard?id=BackShop
-ceTaskId=1076b0a2-59e5-4654-a064-c0d200d20d41
-ceTaskUrl=http://ec2-100-26-120-150.compute-1.amazonaws.com:9000/api/ce/task?id=1076b0a2-59e5-4654-a064-c0d200d20d41
+dashboardUrl=http://ec2-100-26-120-150.compute-1.amazonaws.com:9000/dashboard?id=BackShop_v1
+ceTaskId=0ca36c31-3696-418b-b0fc-0bc295b50035
+ceTaskUrl=http://ec2-100-26-120-150.compute-1.amazonaws.com:9000/api/ce/task?id=0ca36c31-3696-418b-b0fc-0bc295b50035
