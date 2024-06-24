@@ -4,7 +4,7 @@ pipeline {
         stages {
             stage('Preparacion') {
                 steps {
-                    git branch:'main',url:'https://github.com/josebiton/backend_shopmarket.git'
+                    git branch:'main',url:'https://github.com/josebiton/backshop.git'
    	       		echo 'Pulled from github successfully'
                 }
            }
@@ -37,7 +37,7 @@ pipeline {
 
         stage('Compilación de Docker') {
             steps {
-                sh 'docker build -t backend_shopmarket .'
+                sh 'docker build -t backshop .'
             }
         }
 
