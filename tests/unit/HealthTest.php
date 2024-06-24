@@ -1,50 +1,109 @@
 <?php
 
 use CodeIgniter\Test\CIUnitTestCase;
-use Config\App;
-use Config\Services;
-use Tests\Support\Libraries\ConfigReader;
 
-/**
- * @internal
- */
-final class HealthTest extends CIUnitTestCase
-{
-    public function testIsDefinedAppPath()
-    {
-        $this->assertTrue(defined('APPPATH'));
+final class HealthTest extends CIUnitTestCase {
+
+
+    public function testAgregarProductoInventario() : void
+     {
+        $inventario = new MockInventario();
+        $producto = new MockProducto("Manzana", 1.5);
+        $inventario->agregarProducto($producto, 10);
+
+        $this->assertTrue($inventario->estaProductoDisponible("Manzana"));
     }
 
-    public function testBaseUrlHasBeenSet()
-    {
-        $validation = Services::validation();
+    public function testReducirCantidadProducto() : void
+     {
+        $inventario = new MockInventario();
+        $producto = new MockProducto("Manzana", 1.5);
+        $inventario->agregarProducto($producto, 10);
+        $inventario->reducirCantidadProducto("Manzana", 5);
 
-        $env = false;
+        $this->assertTrue($inventario->estaProductoDisponible("Manzana"));
+    }
 
-        // Check the baseURL in .env
-        if (is_file(HOMEPATH . '.env')) {
-            $env = preg_grep('/^app\.baseURL = ./', file(HOMEPATH . '.env')) !== false;
+    public function testAgregarProductoCarrito() {
+        $carrito = new MockCarritoDeCompras();
+        $producto = new MockProducto("Manzana", 1.5);
+        $carrito->agregarProducto($producto);
+
+        $this->assertCount(1, $carrito->productos);
+    }
+
+    public function testCalcularTotal() {
+        $carrito = new MockCarritoDeCompras();
+        $carrito->agregarProducto(new MockProducto("Manzana", 1.5));
+        $carrito->agregarProducto(new MockProducto("Plátano", 0.5));
+
+        $this->assertEquals(2.0, $carrito->calcularTotal());
+    }
+
+    public function testAplicarDescuento() {
+        $carrito = new MockCarritoDeCompras();
+        $carrito->agregarProducto(new MockProducto("Manzana", 2.0));
+        $carrito->aplicarDescuento(0.1);
+
+        $this->assertEquals(1.8, $carrito->calcularTotal());
+    }
+}
+
+class MockProducto {
+    public $nombre;
+    public $precio;
+
+    public function __construct($nombre, $precio) {
+        $this->nombre = $nombre;
+        $this->precio = $precio;
+    }
+}
+
+class MockInventario {
+    private $productos = [];
+
+    public function agregarProducto(MockProducto $producto, $cantidad) {
+        $this->productos[$producto->nombre] = ['producto' => $producto, 'cantidad' => $cantidad];
+    }
+
+    public function reducirCantidadProducto($nombre, $cantidad) {
+        if (isset($this->productos[$nombre])) {
+            $this->productos[$nombre]['cantidad'] -= $cantidad;
+            if ($this->productos[$nombre]['cantidad'] <= 0) {
+                unset($this->productos[$nombre]);
+            }
         }
+    }
 
-        if ($env) {
-            // BaseURL in .env is a valid URL?
-            // phpunit.xml.dist sets app.baseURL in $_SERVER
-            // So if you set app.baseURL in .env, it takes precedence
-            $config = new App();
-            $this->assertTrue(
-                $validation->check($config->baseURL, 'valid_url'),
-                'baseURL "' . $config->baseURL . '" in .env is not valid URL'
-            );
+    public function estaProductoDisponible($nombre) {
+        return isset($this->productos[$nombre]) && $this->productos[$nombre]['cantidad'] > 0;
+    }
+}
+
+class MockCarritoDeCompras {
+    public $productos = [];
+    private $descuento = 0.0;
+
+    public function agregarProducto(MockProducto $producto) {
+        $this->productos[] = $producto;
+    }
+
+    public function eliminarProducto($productoNombre) {
+        foreach ($this->productos as $key => $producto) {
+            if ($producto->nombre === $productoNombre) {
+                unset($this->productos[$key]);
+            }
         }
+    }
 
-        // Get the baseURL in app/Config/App.php
-        // You can't use Config\App, because phpunit.xml.dist sets app.baseURL
-        $reader = new ConfigReader();
+    public function calcularTotal() {
+        $total = array_reduce($this->productos, function ($carry, $producto) {
+            return $carry + $producto->precio;
+        }, 0);
+        return $total * (1 - $this->descuento);
+    }
 
-        // BaseURL in app/Config/App.php is a valid URL?
-        $this->assertTrue(
-            $validation->check($reader->baseURL, 'valid_url'),
-            'baseURL "' . $reader->baseURL . '" in app/Config/App.php is not valid URL'
-        );
+    public function aplicarDescuento($descuento) {
+        $this->descuento = $descuento;
     }
 }

@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'http://localhost/shopmarket/';
+    public string $baseURL = 'ip-172-31-48-213.ec2.internal';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

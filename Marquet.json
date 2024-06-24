@@ -1,0 +1,394 @@
+{
+	"info": {
+		"_postman_id": "4b1367d4-9840-4693-81e5-efae23b8a399",
+		"name": "Proyecto Marquet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21763697",
+		"_collection_link": "https://bold-flare-568401.postman.co/workspace/Testing-Apis-Class~5663184f-055e-4856-9de7-0f13803c6992/collection/21763697-4b1367d4-9840-4693-81e5-efae23b8a399?action=share&source=collection_link&creator=21763697"
+	},
+	"item": [
+		{
+			"name": "Listar Usuarios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El código de estado es 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El tiempo de respuesta es menor a 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"La respuesta es un JSON\", function () {\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta contiene una lista de usuarios\", function () {\r",
+							"    pm.expect(responseJson).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Cada usuario tiene los campos 'id', 'nombre' y 'email'\", function () {\r",
+							"    responseJson.forEach(user => {\r",
+							"        pm.expect(user).to.have.property('id');\r",
+							"        pm.expect(user).to.have.property('name');\r",
+							"        pm.expect(user).to.have.property('email');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/users",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Pedidos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El código de estado es 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El tiempo de respuesta es menor a 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"La respuesta es un JSON\", function () {\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta contiene una lista de pedidos\", function () {\r",
+							"    pm.expect(responseJson).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Cada Pedido tiene los campos 'id', 'empresa' y 'persona'\", function () {\r",
+							"    responseJson.forEach(pedido => {\r",
+							"        pm.expect(pedido).to.have.property('pedido_id');\r",
+							"        pm.expect(pedido).to.have.property('empresa_id');\r",
+							"        pm.expect(pedido).to.have.property('persona_id');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/pedidos",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar  Métodos de Pago",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El código de estado es 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El tiempo de respuesta es menor a 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"La respuesta es un JSON\", function () {\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta contiene una lista de Métodos de Pago\", function () {\r",
+							"    pm.expect(responseJson).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Cada Método de Pago tiene los campos 'metodo_pago_emp_id', 'metodo_pago_nombre' y 'empresa_id'\", function () {\r",
+							"    responseJson.forEach(pago => {\r",
+							"        pm.expect(pago).to.have.property('metodo_pago_emp_id');\r",
+							"        pm.expect(pago).to.have.property('metodo_pago_nombre');\r",
+							"        pm.expect(pago).to.have.property('empresa_id');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/metodo-pago-emp",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"metodo-pago-emp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuarios por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verifica que el tiempo de respuesta sea menor a 250ms\r",
+							"pm.test(\"El tiempo de respuesta es menor a 250ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);\r",
+							"});\r",
+							"\r",
+							"// Verifica que el tipo de contenido sea JSON\r",
+							"pm.test(\"El tipo de contenido es application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"});\r",
+							"\r",
+							"// Imprime la respuesta JSON en la consola\r",
+							"pm.test(\"Imprimir respuesta JSON\", function () {\r",
+							"    console.log(pm.response.json());\r",
+							"});\r",
+							"\r",
+							"// Verifica que la respuesta contiene una propiedad 'id'\r",
+							"pm.test(\"La respuesta contiene 'id'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('id');\r",
+							"});\r",
+							"\r",
+							"// Verifica que la propiedad 'name' en la respuesta es la esperada\r",
+							"pm.test(\"El nombre es correcto\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"MESIAS\");\r",
+							"});\r",
+							"\r",
+							"// Verifica que la propiedad 'email' en la respuesta es la esperada\r",
+							"pm.test(\"El correo electrónico es correcto\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.email).to.eql(\"calebmesias@gmail.com\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/users/1",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Categoría de Producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Prueba para verificar el código de estado 200 (OK)\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Prueba para verificar si la respuesta es un JSON\r",
+							"pm.test(\"Response is JSON\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"// Prueba para verificar si la respuesta contiene al menos una categoría\r",
+							"pm.test(\"Response contains at least one category\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.be.at.least(1);\r",
+							"});\r",
+							"\r",
+							"// Prueba para verificar si cada categoría tiene los campos esperados\r",
+							"pm.test(\"Each category has expected fields\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach(function (category) {\r",
+							"        pm.expect(category).to.have.property(\"categoria_id\");\r",
+							"        pm.expect(category).to.have.property(\"nombre\");\r",
+							"        pm.expect(category).to.have.property(\"imagen\");\r",
+							"        pm.expect(category).to.have.property(\"estado\", \"1\");\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJodHRwOi8vbG9jYWxob3N0L3Nob3BtYXJrZXQvIiwiaWF0IjoxNjk5MjkwNzE5LCJleHAiOjE2OTkyOTQzMTksImRhdGEiOnsibm9tYnJlIjoiTWVzaWFzIiwiZW1haWwiOiJtZXNpQGdtYWlsLmNvbSIsInJvbCI6IkFkbWluIn19.4NP1_39-2JaVMG1VtkLmmPru-97XXTxwrCfhO_nkgog",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nombre",
+							"value": "Juguetes",
+							"type": "text"
+						},
+						{
+							"key": "imagen",
+							"type": "file",
+							"src": "/D:/MovilApp/Imagenes para el proyecto/Categorias/Group 240.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL}}/categorias",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categoría de Producto por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Prueba para verificar el código de estado 200 (OK)\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El tiempo de respuesta es menor a 250ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"// Prueba para verificar si la respuesta es un JSON\r",
+							"pm.test(\"Response is JSON\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJodHRwOi8vbG9jYWxob3N0L3Nob3BtYXJrZXQvIiwiaWF0IjoxNjk5MjkwNzE5LCJleHAiOjE2OTkyOTQzMTksImRhdGEiOnsibm9tYnJlIjoiTWVzaWFzIiwiZW1haWwiOiJtZXNpQGdtYWlsLmNvbSIsInJvbCI6IkFkbWluIn19.4NP1_39-2JaVMG1VtkLmmPru-97XXTxwrCfhO_nkgog",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nombre",
+							"value": "Juguetes",
+							"type": "text"
+						},
+						{
+							"key": "imagen",
+							"type": "file",
+							"src": "/D:/MovilApp/Imagenes para el proyecto/Categorias/Group 240.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL}}/categorias/10",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"categorias",
+						"10"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -137,6 +137,7 @@ class Producto extends BaseController{
             'marca_id' => 'required'
         ]);
     
+        
         if ($validation->withRequest($this->request)->run() === false) {
             return $this->response->setStatusCode(400)->setJSON(['error' => $validation->getErrors()]);
         }

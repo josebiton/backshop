@@ -13,11 +13,18 @@ $routes->get('auth/ini','auth\Auth::x');
 
 
 $routes->get('users', 'Users::index');
+$routes->get('users/(:num)', 'Users::show/$1');
+$routes->post('users', 'Users::store');
+$routes->put('users/(:num)', 'Users::update/$1');
+$routes->delete('users/(:num)', 'Users::delete/$1');
 
 
 // CATEGORIAS
 $routes->get('categorias', 'Categoria::index');
+$routes->get('categorias/(:num)', 'Categoria::show/$1');
 $routes->post('categorias', 'Categoria::store');
+$routes->put('categorias/(:num)', 'Categoria::update/$1');
+$routes->delete('categorias/(:num)', 'Categoria::delete/$1');
 
 // PRODUCTOS
 $routes->get('productos', 'Producto::index');
