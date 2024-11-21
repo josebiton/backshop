@@ -16,7 +16,9 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'https://ec2-35-153-79-91.compute-1.amazonaws.com/';
+    public string $baseURL = 'http://ec2-18-233-102-162.compute-1.amazonaws.com';
+    #public string $baseURL = 'http://localhost/shopmarket/';
+
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

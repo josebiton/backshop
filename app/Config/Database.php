@@ -26,7 +26,7 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'database-bitoncito.cqqlkrymbtcy.us-east-1.rds.amazonaws.com',
+        'hostname'     => 'database-biton.chaya62gesti.us-east-1.rds.amazonaws.com',
         'username'     => 'admin',
         'password'     => 'jnbb11jsm',
         'database'     => 'shopmarket',
