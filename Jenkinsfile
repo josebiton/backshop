@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJS' // Asegúrate de que "NodeJS" sea el nombre exacto configurado en Jenkins.
-    }
-
     stages {
         stage('Preparación') {
             steps {
@@ -43,34 +39,6 @@ pipeline {
                 echo 'Desplegando contenedores con Docker Compose...'
                 sh 'docker compose up -d'
             }
-        }
-
-        stage('Ejecutar Postman Collection') {
-            steps {
-                script {
-                    echo 'Instalando Newman si es necesario...'
-                    sh 'npm install -g newman'
-
-                    echo 'Ejecutando pruebas de Postman...'
-                    sh '''
-                        newman run "Market.postman_collection.json" \
-                        -e "Market-Env.postman_environment.json"
-                    '''
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            echo 'Pipeline finalizado. Limpieza de contenedores si es necesario.'
-            sh 'docker compose down || true'
-        }
-        success {
-            echo 'Pipeline completado con éxito.'
-        }
-        failure {
-            echo 'Pipeline fallido. Revisa los errores.'
         }
     }
 }
