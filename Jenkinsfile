@@ -37,16 +37,16 @@ pipeline {
             }
         }
 
-        stage('Ejecutar Postman Collection') {
-            steps {
-                script {
+        //stage('Ejecutar Postman Collection') {
+           // steps {
+           //     script {
                     // Instalar Newman si no está instalado
-                    sh 'npm install -g newman'
+                 //   sh 'npm install -g newman'
 
                     // Ejecutar la colección de Postman
-                    sh "newman run 'Market.postman_collection.json' -e 'Market-Env.postman_environment.json'"
-                }
-            }
+                   // sh "newman run 'Market.postman_collection.json' -e 'Market-Env.postman_environment.json'"
+              //  }
+           // }
         }
     }
 }
