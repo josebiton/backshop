@@ -1,52 +1,76 @@
 pipeline {
     agent any
-     tools {
-        nodejs "NodeJS" // Reemplaza "nodejs" con el nombre configurado en Jenkins
+
+    tools {
+        nodejs 'NodeJS' // Asegúrate de que "NodeJS" sea el nombre exacto configurado en Jenkins.
     }
 
     stages {
-        stage('Preparacion') {
+        stage('Preparación') {
             steps {
+                echo 'Clonando el repositorio desde GitHub...'
                 git branch: 'main', url: 'https://github.com/josebiton/backshop.git'
-                echo 'Pulled from GitHub successfully'
+                echo 'Repositorio clonado con éxito.'
             }
         }
 
-        stage('Verifica version php') {
+        stage('Verificar versión de PHP') {
             steps {
+                echo 'Verificando la versión de PHP...'
                 sh 'php --version'
             }
         }
 
-        stage('Pruebas unitarias php') {
+        stage('Pruebas Unitarias con PHP') {
             steps {
-                sh 'chmod +x ./vendor/bin/phpunit'
-                sh './vendor/bin/phpunit'
+                echo 'Ejecutando pruebas unitarias con PHPUnit...'
+                sh '''
+                    chmod +x ./vendor/bin/phpunit
+                    ./vendor/bin/phpunit
+                '''
             }
         }
 
         stage('Compilación de Docker') {
             steps {
+                echo 'Construyendo imagen Docker...'
                 sh 'docker build -t backshop .'
             }
         }
 
-        stage('Implementar php') {
+        stage('Implementación con Docker') {
             steps {
+                echo 'Desplegando contenedores con Docker Compose...'
                 sh 'docker compose up -d'
             }
         }
 
-        //stage('Ejecutar Postman Collection') {
-           // steps {
-           //     script {
-                    // Instalar Newman si no está instalado
-                 //   sh 'npm install -g newman'
+        stage('Ejecutar Postman Collection') {
+            steps {
+                script {
+                    echo 'Instalando Newman si es necesario...'
+                    sh 'npm install -g newman'
 
-                    // Ejecutar la colección de Postman
-                   // sh "newman run 'Market.postman_collection.json' -e 'Market-Env.postman_environment.json'"
-              //  }
-           // }
+                    echo 'Ejecutando pruebas de Postman...'
+                    sh '''
+                        newman run "Market.postman_collection.json" \
+                        -e "Market-Env.postman_environment.json"
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finalizado. Limpieza de contenedores si es necesario.'
+            sh 'docker compose down || true'
+        }
+        success {
+            echo 'Pipeline completado con éxito.'
+        }
+        failure {
+            echo 'Pipeline fallido. Revisa los errores.'
         }
     }
 }
