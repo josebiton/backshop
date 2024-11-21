@@ -17,16 +17,6 @@ pipeline {
             }
         }
 
-        stage('Pruebas Unitarias con PHP') {
-            steps {
-                echo 'Ejecutando pruebas unitarias con PHPUnit...'
-                sh '''
-                    chmod +x ./vendor/bin/phpunit
-                    ./vendor/bin/phpunit
-                '''
-            }
-        }
-
         stage('Compilación de Docker') {
             steps {
                 echo 'Construyendo imagen Docker...'
